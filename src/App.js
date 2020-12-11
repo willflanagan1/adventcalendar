@@ -3,8 +3,8 @@ import { Component } from "react";
 import tree from "./resources/xmastree.png";
 import header from "./resources/header.png";
 import snowman from "./resources/snowman.png";
-import { Grid, Modal } from "@material-ui/core";
-import CloseIcon from '@material-ui/icons/Close';
+import { Grid, Modal, Fade } from "@material-ui/core";
+import CloseIcon from "@material-ui/icons/Close";
 
 class App extends Component {
   render() {
@@ -109,6 +109,7 @@ class Dayframe extends Component {
         <GiftModal
           key={this.state.modalOpen}
           status={this.state.modalOpen}
+          day={this.state.day}
         ></GiftModal>
       </Grid>
     );
@@ -120,8 +121,9 @@ class GiftModal extends Component {
     super(props);
     this.state = {
       open: this.props.status,
+      day: this.props.day,
     };
-    this.handleClose = this.handleClose.bind(this)
+    this.handleClose = this.handleClose.bind(this);
   }
 
   handleClose() {
@@ -132,8 +134,27 @@ class GiftModal extends Component {
 
   render() {
     return (
-      <Modal open={this.state.open}>
-        <div>Hi<CloseIcon onClick={this.handleClose}></CloseIcon></div>
+      <Modal
+        open={this.state.open}
+        aria-labelledby="transition-modal-title"
+        aria-describedby="transition-modal-description"
+        className="Modal"
+      >
+        <Fade in={this.state.open}>
+          <div className="MessageContainer">
+            <div className="MessageBox">
+              <p className="MessageDay">Day {this.props.day}</p>
+              <p className="MessageText">I LOVE YOU</p>
+            </div>
+            <div className="X-buttonContainer">
+              <CloseIcon
+                className="X-button"
+                onClick={this.handleClose}
+                fontSize="small"
+              ></CloseIcon>
+            </div>
+          </div>
+        </Fade>
       </Modal>
     );
   }

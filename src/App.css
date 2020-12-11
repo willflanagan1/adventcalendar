@@ -50,6 +50,7 @@ body {
   -webkit-box-shadow: -2px 4px 10px 0px rgba(0, 0, 0, 0.68);
   box-shadow: -2px 4px 10px 0px rgba(0, 0, 0, 0.68);
   text-align: center;
+  cursor: pointer;
 }
 
 .Door.open {
@@ -75,10 +76,47 @@ body {
   text-shadow: 0 0 5px #000;
 }
 
+.Modal {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
+.MessageContainer {
+  background-color: rgb(212, 32, 32);
+  height: 200px;
+  width: 200px;
+  border: "2px solid #000";
+  -webkit-box-shadow: -2px 4px 10px 0px rgba(0, 0, 0, 0.68);
+  box-shadow: -2px 4px 10px 0px rgba(0, 0, 0, 0.68);
+  padding: 3px;
+  color: white;
+  text-align: center;
+}
 
+.MessageBox {
+  padding-left: 20px;
+  width: 80%;
+  float: left;
+}
 
+.MessageDay {
+  text-decoration: underline;
+  margin-top: 5px;
+}
 
+.MessageText {
+  margin-top: 45px;
+}
+
+.X-buttonContainer {
+  float: right;
+}
+
+.X-button {
+  cursor: pointer;
+  float: right;
+}
 
 /*SNOWFLAKES ANIMATION*/
 
