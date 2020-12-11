@@ -1,17 +1,86 @@
 import "./App.css";
 import { Component } from "react";
-import test from "./logo.svg";
-import tree from "./resources/xmastree.png"
-
-
+import tree from "./resources/xmastree.png";
+import header from "./resources/header.png";
+import snowman from "./resources/snowman.png";
+import { Grid, Box } from "@material-ui/core";
 
 class App extends Component {
   render() {
     return (
       <div className="App">
-        {[...Array(25)].map((e, i) =>
-          <Dayframe day={i + 1} key={i} />
-        )}
+        <Snowflakes></Snowflakes>
+        <AppHeader></AppHeader>
+        <Grid container className="DoorGrid" spacing={2}>
+          <Grid item>
+            <Grid container justify="center" spacing={7}>
+              {[...Array(25)].map((e, i) => (
+                <Dayframe day={i + 1} key={i} />
+              ))}
+            </Grid>
+          </Grid>
+        </Grid>
+      </div>
+    );
+  }
+}
+
+function Snowflakes() {
+  return (
+    <div class="snowflakes" aria-hidden="true">
+        <div class="snowflake">
+        ❅
+        </div>
+        <div class="snowflake">
+        ❆
+        </div>
+        <div class="snowflake">
+        ❅
+        </div>
+        <div class="snowflake">
+        ❆
+        </div>
+        <div class="snowflake">
+        ❅
+        </div>
+        <div class="snowflake">
+        ❆
+        </div>
+        <div class="snowflake">
+          ❅
+        </div>
+        <div class="snowflake">
+          ❆
+        </div>
+        <div class="snowflake">
+          ❅
+        </div>
+        <div class="snowflake">
+          ❆
+        </div>
+        <div class="snowflake">
+          ❅
+        </div>
+        <div class="snowflake">
+          ❆
+        </div>
+      </div>
+  )
+}
+
+class AppHeader extends Component {
+  render() {
+    return (
+      <div className="HeaderContainer">
+        <div class="ImageContainer">
+          <img className="SnowmanImg" src={snowman}></img>
+        </div>
+        <div class="ImageContainer">
+          <img className="TitleImg" src={header}></img>
+        </div>
+        <div class="ImageContainer">
+          <img className="SnowmanImg flipped" src={snowman}></img>
+        </div>
       </div>
     );
   }
@@ -28,16 +97,12 @@ class Dayframe extends Component {
   }
 
   checkDate() {
-    var now = new Date()
-    if (now.getDate() >= this.state.day) {
-      return true;
-    } else {
-      return false;
-    }
+    var now = new Date();
+    return now.getDate() >= this.state.day;
   }
 
   changeDoorStatus() {
-    var canOpen = this.checkDate()
+    var canOpen = this.checkDate();
     if (canOpen) {
       if (this.state.doorStatus === "close") {
         this.setState({
@@ -53,19 +118,19 @@ class Dayframe extends Component {
 
   render() {
     return (
-      <div className="DoorContainer">
+      <Grid item className="DoorContainer">
         <div
           className={`Door ${this.state.doorStatus}`}
           onClick={this.changeDoorStatus}
         >
-          <div className="FrontDoor">
-            <p>Day {this.state.day}</p>
-            <img className="Tree" src={tree} />
-          </div>
+          <p className="DayTitle">Day {this.state.day}</p>
+          <img className="Tree" src={tree} />
         </div>
-      </div>
+      </Grid>
     );
   }
 }
+
+class GiftModal extends Component {}
 
 export default App;
