@@ -3,7 +3,8 @@ import { Component } from "react";
 import tree from "./resources/xmastree.png";
 import header from "./resources/header.png";
 import snowman from "./resources/snowman.png";
-import { Grid, Box } from "@material-ui/core";
+import { Grid, Modal } from "@material-ui/core";
+import CloseIcon from '@material-ui/icons/Close';
 
 class App extends Component {
   render() {
@@ -27,58 +28,34 @@ class App extends Component {
 
 function Snowflakes() {
   return (
-    <div class="snowflakes" aria-hidden="true">
-        <div class="snowflake">
-        ❅
-        </div>
-        <div class="snowflake">
-        ❆
-        </div>
-        <div class="snowflake">
-        ❅
-        </div>
-        <div class="snowflake">
-        ❆
-        </div>
-        <div class="snowflake">
-        ❅
-        </div>
-        <div class="snowflake">
-        ❆
-        </div>
-        <div class="snowflake">
-          ❅
-        </div>
-        <div class="snowflake">
-          ❆
-        </div>
-        <div class="snowflake">
-          ❅
-        </div>
-        <div class="snowflake">
-          ❆
-        </div>
-        <div class="snowflake">
-          ❅
-        </div>
-        <div class="snowflake">
-          ❆
-        </div>
-      </div>
-  )
+    <div className="snowflakes" aria-hidden="true">
+      <div className="snowflake">❅</div>
+      <div className="snowflake">❆</div>
+      <div className="snowflake">❅</div>
+      <div className="snowflake">❆</div>
+      <div className="snowflake">❅</div>
+      <div className="snowflake">❆</div>
+      <div className="snowflake">❅</div>
+      <div className="snowflake">❆</div>
+      <div className="snowflake">❅</div>
+      <div className="snowflake">❆</div>
+      <div className="snowflake">❅</div>
+      <div className="snowflake">❆</div>
+    </div>
+  );
 }
 
 class AppHeader extends Component {
   render() {
     return (
       <div className="HeaderContainer">
-        <div class="ImageContainer">
+        <div className="ImageContainer">
           <img className="SnowmanImg" src={snowman}></img>
         </div>
-        <div class="ImageContainer">
+        <div className="ImageContainer">
           <img className="TitleImg" src={header}></img>
         </div>
-        <div class="ImageContainer">
+        <div className="ImageContainer">
           <img className="SnowmanImg flipped" src={snowman}></img>
         </div>
       </div>
@@ -92,6 +69,7 @@ class Dayframe extends Component {
     this.state = {
       day: this.props.day,
       doorStatus: "close",
+      modalOpen: false,
     };
     this.changeDoorStatus = this.changeDoorStatus.bind(this);
   }
@@ -107,10 +85,12 @@ class Dayframe extends Component {
       if (this.state.doorStatus === "close") {
         this.setState({
           doorStatus: "open",
+          modalOpen: true,
         });
       } else {
         this.setState({
           doorStatus: "close",
+          modalOpen: false,
         });
       }
     }
@@ -126,11 +106,37 @@ class Dayframe extends Component {
           <p className="DayTitle">Day {this.state.day}</p>
           <img className="Tree" src={tree} />
         </div>
+        <GiftModal
+          key={this.state.modalOpen}
+          status={this.state.modalOpen}
+        ></GiftModal>
       </Grid>
     );
   }
 }
 
-class GiftModal extends Component {}
+class GiftModal extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      open: this.props.status,
+    };
+    this.handleClose = this.handleClose.bind(this)
+  }
+
+  handleClose() {
+    this.setState({
+      open: false,
+    });
+  }
+
+  render() {
+    return (
+      <Modal open={this.state.open}>
+        <div>Hi<CloseIcon onClick={this.handleClose}></CloseIcon></div>
+      </Modal>
+    );
+  }
+}
 
 export default App;
